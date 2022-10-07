@@ -3,13 +3,13 @@ pipeline {
 
 	//Configure the following environment variables before executing the Jenkins Job
 	environment {
-		IntegrationFlowID = "IntegrationFlow1"
-		CPIHost = "${env.CPI_HOST}"
-		CPIOAuthHost = "${env.CPI_OAUTH_HOST}"
-		CPIOAuthCredentials = "${env.CPI_OAUTH_CRED}"
-		GITRepositoryURL   = "${env.GIT_REPOSITORY_URL}"
-		GITCredentials = "${env.GIT_CRED}"
-		GITBranch = "${env.GIT_BRANCH_NAME}"
+		IntegrationFlowID = "rb.c.mdm.mdmcloudservice.icpm.test.odata"
+		CPIHost = "${env.MY_CPI_HOST}"
+		CPIOAuthHost = "${env.MY_CPI_OAUTH_HOST}"
+		CPIOAuthCredentials = "${env.MY_CPI_OAUTH_CRED}"
+		GITRepositoryURL   = "${env.MY_GIT_REPOSITORY_URL}"
+		GITCredentials = "${env.MY_GIT_CRED}"
+		GITBranch = "${env.MY_GIT_BRANCH_NAME}"
 		GITComment = "Integration Artefacts update from CI/CD pipeline"
 		GITFolder = "IntegrationContent/IntegrationArtefacts"
 	}
@@ -48,7 +48,7 @@ pipeline {
 					cpiTokenResponse.close();
 					
 					//get flow version from Cloud Integration tenant
-					def cpiVersionResponse = httpRequest acceptType: 'APPLICATION_JSON', 
+					def cpiVersionResponse = httpRequest httpProxy: 'http://rb-proxy-sl.rbesz01.com:8080',acceptType: 'APPLICATION_JSON', 
 						customHeaders: [[maskValue: true, name: 'Authorization', value: cpiToken]],
 						ignoreSslErrors: false, 
 						responseHandle: 'LEAVE_OPEN', 
@@ -98,7 +98,7 @@ pipeline {
 					//download and extract latest integration flow version from Cloud Integration tenant
 					def tempfile=UUID.randomUUID().toString() + ".zip";   
 					println("Download artefact");
-					def cpiFlowResponse = httpRequest acceptType: 'APPLICATION_ZIP', 
+					def cpiFlowResponse = httpRequest httpProxy: 'http://rb-proxy-sl.rbesz01.com:8080',acceptType: 'APPLICATION_ZIP', 
 						customHeaders: [[maskValue: true, name: 'Authorization', value: cpiToken]],
 						ignoreSslErrors: false, 
 						responseHandle: 'LEAVE_OPEN', 
