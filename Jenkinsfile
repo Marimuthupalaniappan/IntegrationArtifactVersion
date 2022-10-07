@@ -37,7 +37,7 @@ pipeline {
 					])
 					
 					//get Cloud Integration Oauth token
-					def cpiTokenResponse = httpRequest acceptType: 'APPLICATION_JSON', 
+					def cpiTokenResponse = httpRequest httpProxy: 'http://rb-proxy-sl.rbesz01.com:8080',acceptType: 'APPLICATION_JSON', 
 						authentication: env.CPIOAuthCredentials, 
 						ignoreSslErrors: false, 
 						responseHandle: 'LEAVE_OPEN', 
