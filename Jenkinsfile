@@ -121,11 +121,11 @@ pipeline {
 					dir(folder){
 						sh 'git add .'
 					}
-					println("Store artefact in Git");
-					withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: env.GITCredentials ,usernameVariable: 'GitUserName', passwordVariable: 'GitPassword']]) {    
-						sh 'git diff-index --quiet HEAD || git commit -am ' + '\'' + env.GITComment + '\''
-						sh('git push https://${GitUserName}:${GitPassword}@' + env.GITRepositoryURL  + ' HEAD:' + env.GITBranch)
-                    }
+					//println("Store artefact in Git");
+					//withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: env.GITCredentials ,usernameVariable: 'GitUserName', passwordVariable: 'GitPassword']]) {    
+						//sh 'git diff-index --quiet HEAD || git commit -am ' + '\'' + env.GITComment + '\''
+						//sh('git push https://${GitUserName}:${GitPassword}@' + env.GITRepositoryURL  + ' HEAD:' + env.GITBranch)
+                    //}
                 
 				}
         	}
