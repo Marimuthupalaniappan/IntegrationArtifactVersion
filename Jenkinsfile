@@ -115,7 +115,7 @@ pipeline {
 					cpiFlowResponse.close();
 
 					//remove the zip
-					fileOperations([fileDeleteOperation(excludes: '', includes: tempfile)])
+					//fileOperations([fileDeleteOperation(excludes: '', includes: tempfile)])
 
 					//adding the content to the index and uploading it to the repository
 					dir(folder){
